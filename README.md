@@ -112,9 +112,9 @@ the Aptiwise endpoint to accept the `client_credentials` grant. Prefer
   is transparently re-minted once and the request retried.
 * **User-facing errors**: misconfiguration, an unlinked account, or an
   unreachable Aptiwise surface as clean Odoo notifications, not tracebacks.
-* **Identity mapping**: the Aptiwise account is matched by the user's
-  `aptiwise_email` (if set on their user record) else Odoo `email` else
-  `login`.
+* **Identity mapping**: the Aptiwise account is matched by the
+  administrator-managed `aptiwise_email` override, falling back to the Odoo
+  `login`. The user's editable Odoo profile `email` is never used.
 
 ## Security notes
 

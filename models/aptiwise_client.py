@@ -152,15 +152,18 @@ class AptiwiseClient(models.AbstractModel):
     # ------------------------------------------------------------------ #
     def _current_email(self):
         user = self.env.user
-        email = user.aptiwise_email or user.email or user.login
+        email = (user.aptiwise_email or "").strip() or (user.login or "").strip()
         if not email:
-            raise UserError("Your Odoo user has no email to map to an Aptiwise account.")
-        return email.strip().lower()
+            raise UserError(
+                "Your Odoo login can't be used to identify an Aptiwise account. "
+                "Ask your administrator to link your account."
+            )
+        return email.lower()
 
-    def get_user_token(self, email=None, scope=None):
+    def _get_user_token(self, email, scope=None):
         """Return (token, cache_key) for the given (or current) user."""
         scope = scope or self._default_scope()
-        email = (email or self._current_email()).strip().lower()
+        email = email.strip().lower()
         cache_key = "user:%s:%s" % (email, scope)
         token = self._get_cached(cache_key)
         if token:
@@ -168,6 +171,10 @@ class AptiwiseClient(models.AbstractModel):
         token, expiry = self._mint_user_token(email, scope)
         self._store_cache(cache_key, token, expiry)
         return token, cache_key
+
+    def get_user_token(self, scope=None):
+        """Return (token, cache_key) for the current user."""
+        return self._get_user_token(self._current_email(), scope=scope)
 
     def get_service_token(self, scope=None):
         """Return (token, cache_key) for the integration itself (no user)."""
@@ -188,7 +195,7 @@ class AptiwiseClient(models.AbstractModel):
             token, _ = self.get_service_token(scope=rest)
         else:  # "user:<email>:<scope>"
             email, _, scope = rest.partition(":")
-            token, _ = self.get_user_token(email=email, scope=scope)
+            token, _ = self._get_user_token(email=email, scope=scope)
         return token
 
     # ------------------------------------------------------------------ #

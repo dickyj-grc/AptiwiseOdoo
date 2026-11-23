@@ -6,15 +6,7 @@ class ResUsers(models.Model):
 
     aptiwise_email = fields.Char(
         string="Aptiwise Email",
+        groups="base.group_system",
         help="Set only if this user's Aptiwise account email differs from "
-             "their Odoo email/login. Leave blank to use the Odoo email.",
+             "their Odoo login. Leave blank to use the Odoo login.",
     )
-
-    # Allow a user to see/set their own mapping without broad res.users access.
-    @property
-    def SELF_READABLE_FIELDS(self):
-        return super().SELF_READABLE_FIELDS + ["aptiwise_email"]
-
-    @property
-    def SELF_WRITEABLE_FIELDS(self):
-        return super().SELF_WRITEABLE_FIELDS + ["aptiwise_email"]
