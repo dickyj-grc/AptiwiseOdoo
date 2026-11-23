@@ -21,7 +21,7 @@ class AptiwiseWorkflow(models.Model):
     url = fields.Char(
         required=True,
         string="Trigger URL",
-        help="Full Aptiwise workflow trigger endpoint, e.g. https://api.aptiwise.com/api/v1/workflows/42/trigger",
+        help="Full Aptiwise workflow trigger endpoint, e.g. https://app.aptiwise.com/api/v1/workflows/42/trigger",
     )
     scope = fields.Char(
         default="workflow:trigger",

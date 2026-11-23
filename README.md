@@ -40,7 +40,7 @@ which take precedence and keep the secret out of the config file in
 containerised deploys:
 
 ```ini
-aptiwise_token_url     = https://api.aptiwise.com/api/v1/oauth/token
+aptiwise_token_url     = https://app.aptiwise.com/api/v1/oauth/token
 aptiwise_client_id     = odoo-acme-prod
 aptiwise_client_secret = <shown once at registration>
 ; optional:
