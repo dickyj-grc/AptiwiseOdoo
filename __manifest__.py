@@ -29,7 +29,7 @@ See README.md for configuration and call-site examples.
     "author": "Aptiwise",
     "website": "https://aptiwise.com",
     "category": "Tools",
-    "license": "MIT",
+    "license": "Other OSI approved licence",
     "depends": ["base"],
     "data": [
         "security/ir.model.access.csv",
