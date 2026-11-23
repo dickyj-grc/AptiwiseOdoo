@@ -17,6 +17,16 @@ per-user is stored anywhere.
 * An Aptiwise `/oauth/token` endpoint and a registered service client
   (`client_id` / `client_secret`).
 
+The root `requirements.txt` lists the addon's external Python dependency for
+standalone installs and automated dependency auditing.
+
+## Security scans
+
+GitHub Actions runs `pip-audit` against `requirements.txt` and a Trivy
+filesystem scan for high- and critical-severity vulnerabilities, secrets, and
+misconfigurations on pushes, pull requests, and weekly. The workflow can also
+be started manually from the Actions tab.
+
 ## Install
 
 1. Copy the `aptiwise_connector/` folder into your addons path
